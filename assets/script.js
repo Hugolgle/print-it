@@ -20,6 +20,7 @@ const slides = [
 const arrowLeft = document.querySelector(".arrow_left");
 const arrowRight = document.querySelector(".arrow_right");
 const img = document.getElementById("bg-img");
+const dots = document.querySelectorAll(".dot")
 
 let currentIndex = 0;
 
@@ -33,15 +34,32 @@ function changeImg(index, direction) {
 	const imagePath = `assets/images/slideshow/${slides[currentIndex].image}`;
 	img.src = imagePath;
 	img.alt = `Slide ${currentIndex + 1}`;
+	const tagLine = document.querySelector(".p");
+	tagLine.innerHTML = `${slides[currentIndex].tagLine}`;
+}
+
+function changeDot(index) {
+	dots.forEach((dot, i) => {
+		if (i === index) {
+			dot.classList.add('dot_selected');
+		} else {
+			dot.classList.remove('dot_selected');
+		}
+	});
 }
 
 arrowLeft.addEventListener('click', () => {
 	currentIndex = (currentIndex - 1);
 	changeImg(currentIndex, "left");
+	changeDot(currentIndex);
 });
 
 
 arrowRight.addEventListener('click', () => {
 	currentIndex = (currentIndex + 1);
 	changeImg(currentIndex, "right");
+	changeDot(currentIndex);
 });
+
+changeImg(currentIndex, 'start');
+changeDot(currentIndex);
